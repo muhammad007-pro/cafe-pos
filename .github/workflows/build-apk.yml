@@ -45,8 +45,16 @@ jobs:
         working-directory: ./android/android
         run: ./gradlew assembleDebug --no-daemon --stacktrace
       
+      - name: List APK files (debug)
+        run: |
+          echo "=== Qidirilayotgan APK fayllari ==="
+          find . -name "*.apk" -type f
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: PremiumPOS-App
-          path: android/android/app/build/outputs/apk/debug/app-debug.apkv 
+          path: |
+            **/*.apk
+            **/app-debug.apk
+            **/app-release.apk
