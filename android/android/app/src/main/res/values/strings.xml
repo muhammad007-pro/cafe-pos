@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PremiumPOS Pro</string>
+    <string name="title_activity_main">PremiumPOS Pro</string>
+    <string name="package_name">uz.premiumpos.pro</string>
+    <string name="custom_url_scheme">uz.premiumpos.pro</string>
+</resources>

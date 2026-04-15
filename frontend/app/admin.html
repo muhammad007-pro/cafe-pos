@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#c9a84c">
+    
+    <title>Admin Panel | PremiumPOS</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/pages/admin.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="admin-page">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <img src="../assets/icons/logo.svg" alt="Logo" class="loading-logo animate-pulse">
+            <div class="loading-progress">
+                <div class="progress-bar" id="loadingProgress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Container -->
+    <div class="admin-container">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar glass" id="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/icons/logo.svg" alt="Logo" class="sidebar-logo">
+                <h2>Admin<span>Panel</span></h2>
+                <button class="sidebar-collapse btn-icon glass" id="sidebarCollapse">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-section="dashboard">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="2" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 7h5M17 17h5" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                
+                <div class="nav-divider"></div>
+                
+                <div class="nav-section-title">BOSHQARUV</div>
+                
+                <a href="#users" class="nav-item" data-section="users">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Foydalanuvchilar</span>
+                </a>
+                
+                <a href="#roles" class="nav-item" data-section="roles">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 12l4-2v6l-4 2-4-2v-6l4 2z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Rollar va Ruxsatlar</span>
+                </a>
+                
+                <a href="#menu" class="nav-item" data-section="menu">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 8h16M4 16h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                        <circle cx="8" cy="16" r="2" fill="currentColor"/>
+                    </svg>
+                    <span>Menyu</span>
+                </a>
+                
+                <a href="#tables" class="nav-item" data-section="tables">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="2" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                        <circle cx="16" cy="8" r="2" fill="currentColor"/>
+                        <circle cx="8" cy="16" r="2" fill="currentColor"/>
+                        <circle cx="16" cy="16" r="2" fill="currentColor"/>
+                    </svg>
+                    <span>Stollar</span>
+                </a>
+                
+                <a href="#inventory" class="nav-item" data-section="inventory">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Ombor</span>
+                </a>
+                
+                <div class="nav-divider"></div>
+                
+                <div class="nav-section-title">BIZNES</div>
+                
+                <a href="#analytics" class="nav-item" data-section="analytics">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 12v6a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h6" stroke="currentColor" stroke-width="2"/>
+                        <path d="M15 6l6-6v6h-6z" fill="currentColor"/>
+                    </svg>
+                    <span>Analitika</span>
+                </a>
+                
+                <a href="#reports" class="nav-item" data-section="reports">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>Hisobotlar</span>
+                </a>
+                
+                <a href="#employees" class="nav-item" data-section="employees">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="6" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M20 17v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M16 13v-2a4 4 0 00-8 0v2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Xodimlar</span>
+                </a>
+                
+                <a href="#shifts" class="nav-item" data-section="shifts">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>Smenalar</span>
+                </a>
+                
+                <div class="nav-divider"></div>
+                
+                <div class="nav-section-title">SOZLAMALAR</div>
+                
+                <a href="#settings" class="nav-item" data-section="settings">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Umumiy sozlamalar</span>
+                </a>
+                
+                <a href="#printer" class="nav-item" data-section="printer">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9V3h12v6M6 21h12v-6H6v6z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M18 9h2a2 2 0 012 2v5a2 2 0 01-2 2h-2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Printer</span>
+                </a>
+                
+                <a href="#backup" class="nav-item" data-section="backup">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M19 11H5M5 5h14v14H5z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 16a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Zaxiralash</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="system-info">
+                    <div class="info-item">
+                        <span class="label">Versiya:</span>
+                        <span class="value">1.0.0</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Litsenziya:</span>
+                        <span class="value">Premium</span>
+                    </div>
+                </div>
+                
+                <div class="user-info">
+                    <img src="../assets/images/avatar-placeholder.jpg" alt="Admin" class="user-avatar">
+                    <div class="user-details">
+                        <span class="user-name" id="adminName">Admin</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                    <button class="btn-icon glass" id="logoutBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 17l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header glass">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle btn-icon glass" id="mobileMenuToggle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="page-title">
+                        <h1 id="pageTitle">Dashboard</h1>
+                        <nav class="breadcrumb">
+                            <a href="#">Bosh sahifa</a>
+                            <span>/</span>
+                            <span id="breadcrumbCurrent">Dashboard</span>
+                        </nav>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <div class="date-display glass" id="currentDate">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span id="dateText"></span>
+                    </div>
+                    
+                    <button class="btn-icon glass notification-btn" id="notificationBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span class="notification-badge">5</span>
+                    </button>
+                    
+                    <button class="btn-icon glass" id="themeToggle">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="5" fill="currentColor"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    
+                    <button class="btn-icon glass" id="refreshBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M23 4v6h-6M1 20v-6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Content Sections -->
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="content-section active">
+                    <div class="section-header">
+                        <h2>Umumiy ko'rsatkichlar</h2>
+                        <div class="date-range-selector">
+                            <button class="date-range-btn active" data-range="today">Bugun</button>
+                            <button class="date-range-btn" data-range="week">Hafta</button>
+                            <button class="date-range-btn" data-range="month">Oy</button>
+                            <button class="date-range-btn" data-range="year">Yil</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Stats Cards -->
+                    <div class="stats-grid">
+                        <div class="stat-card premium-card">
+                            <div class="stat-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-value" id="totalRevenue">0 UZS</span>
+                                <span class="stat-label">Umumiy daromad</span>
+                                <span class="stat-trend up" id="revenueTrend">+15.2%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card premium-card">
+                            <div class="stat-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <path d="M4 8h16v12a2 2 0 01-2 2H6a2 2 0 01-2-2V8z" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M8 4V2h8v2" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-value" id="totalOrders">0</span>
+                                <span class="stat-label">Buyurtmalar</span>
+                                <span class="stat-trend up" id="ordersTrend">+8.5%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card premium-card">
+                            <div class="stat-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-value" id="totalCustomers">0</span>
+                                <span class="stat-label">Mijozlar</span>
+                                <span class="stat-trend up" id="customersTrend">+12.3%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card premium-card">
+                            <div class="stat-icon">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <span class="stat-value" id="averageCheck">0 UZS</span>
+                                <span class="stat-label">O'rtacha chek</span>
+                                <span class="stat-trend up" id="avgCheckTrend">+5.7%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts -->
+                    <div class="charts-grid">
+                        <div class="chart-card glass">
+                            <div class="chart-header">
+                                <h3>Daromad dinamikasi</h3>
+                                <div class="chart-actions">
+                                    <button class="btn-icon glass chart-option">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                            <circle cx="12" cy="12" r="1" fill="currentColor"/>
+                                            <circle cx="19" cy="12" r="1" fill="currentColor"/>
+                                            <circle cx="5" cy="12" r="1" fill="currentColor"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                        
+                        <div class="chart-card glass">
+                            <div class="chart-header">
+                                <h3>Ommabop mahsulotlar</h3>
+                            </div>
+                            <canvas id="popularProductsChart"></canvas>
+                        </div>
+                        
+                        <div class="chart-card glass">
+                            <div class="chart-header">
+                                <h3>Kategoriyalar bo'yicha savdo</h3>
+                            </div>
+                            <canvas id="categoriesChart"></canvas>
+                        </div>
+                        
+                        <div class="chart-card glass">
+                            <div class="chart-header">
+                                <h3>To'lov usullari</h3>
+                            </div>
+                            <canvas id="paymentMethodsChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Orders Table -->
+                    <div class="table-card glass">
+                        <div class="table-header">
+                            <h3>So'nggi buyurtmalar</h3>
+                            <a href="#reports" class="btn-link">Barchasi →</a>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Buyurtma #</th>
+                                        <th>Stol</th>
+                                        <th>Ofitsiant</th>
+                                        <th>Summa</th>
+                                        <th>Holat</th>
+                                        <th>Vaqt</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentOrdersTable">
+                                    <!-- Will be populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Users Section -->
+                <section id="users-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Foydalanuvchilar</h2>
+                        <button class="btn btn-primary" id="addUserBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Yangi foydalanuvchi
+                        </button>
+                    </div>
+                    
+                    <div class="table-filters glass">
+                        <div class="search-wrapper">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                                <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <input type="search" id="userSearch" placeholder="Qidirish...">
+                        </div>
+                        <select id="userRoleFilter" class="glass">
+                            <option value="">Barcha rollar</option>
+                            <option value="admin">Admin</option>
+                            <option value="waiter">Ofitsiant</option>
+                            <option value="kitchen">Oshpaz</option>
+                            <option value="cashier">Kassir</option>
+                        </select>
+                        <select id="userStatusFilter" class="glass">
+                            <option value="">Barcha holatlar</option>
+                            <option value="active">Faol</option>
+                            <option value="inactive">Nofaol</option>
+                            <option value="blocked">Bloklangan</option>
+                        </select>
+                    </div>
+                    
+                    <div class="table-card glass">
+                        <div class="table-wrapper">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" id="selectAllUsers"></th>
+                                        <th>ID</th>
+                                        <th>F.I.O</th>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Telefon</th>
+                                        <th>Rol</th>
+                                        <th>Holat</th>
+                                        <th>So'nggi kirish</th>
+                                        <th>Amallar</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="usersTableBody">
+                                    <!-- Will be populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="table-footer">
+                            <div class="table-info">
+                                <span id="usersCount">0</span> ta yozuv
+                            </div>
+                            <div class="pagination" id="usersPagination">
+                                <!-- Will be populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Menu Section -->
+                <section id="menu-section" class="content-section">
+                    <div class="section-header">
+                        <h2>Menyu boshqaruvi</h2>
+                        <div class="header-actions">
+                            <button class="btn btn-outline" id="manageCategoriesBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                Kategoriyalar
+                            </button>
+                            <button class="btn btn-primary" id="addProductBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                Yangi mahsulot
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="menu-layout">
+                        <div class="categories-panel glass">
+                            <h3>Kategoriyalar</h3>
+                            <div class="categories-list" id="adminCategoriesList">
+                                <!-- Will be populated by JS -->
+                            </div>
+                        </div>
+                        
+                        <div class="products-panel">
+                            <div class="table-filters glass">
+                                <div class="search-wrapper">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                        <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                                        <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                    <input type="search" id="productSearch" placeholder="Mahsulot qidirish...">
+                                </div>
+                            </div>
+                            
+                            <div class="table-card glass">
+                                <div class="table-wrapper">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Rasm</th>
+                                                <th>Nomi</th>
+                                                <th>Kategoriya</th>
+                                                <th>Narx</th>
+                                                <th>Tannarx</th>
+                                                <th>Holat</th>
+                                                <th>Amallar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="productsTableBody">
+                                            <!-- Will be populated by JS -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- User Modal -->
+    <div class="modal" id="userModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass modal-large">
+            <div class="modal-header">
+                <h2 id="userModalTitle">Yangi foydalanuvchi</h2>
+                <button class="modal-close btn-icon glass">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>To'liq ism *</label>
+                            <input type="text" name="full_name" required placeholder="Alisher Uzoqov">
+                        </div>
+                        <div class="form-group">
+                            <label>Username *</label>
+                            <input type="text" name="username" required placeholder="alisher">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" name="email" required placeholder="alisher@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefon</label>
+                            <input type="tel" name="phone" placeholder="+998 90 123 45 67">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Parol *</label>
+                            <input type="password" name="password" id="userPassword" placeholder="••••••••">
+                            <small class="form-hint" id="passwordHint">Kamida 6 ta belgi</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Parolni tasdiqlash *</label>
+                            <input type="password" name="confirm_password" id="confirmPassword" placeholder="••••••••">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Rol *</label>
+                            <select name="role_id" required id="userRole">
+                                <option value="">Rol tanlang</option>
+                                <!-- Will be populated by JS -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Holat</label>
+                            <select name="status" id="userStatus">
+                                <option value="active">Faol</option>
+                                <option value="inactive">Nofaol</option>
+                                <option value="blocked">Bloklangan</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="checkbox-wrapper">
+                                <input type="checkbox" name="is_superuser" id="isSuperuser">
+                                <span class="checkmark"></span>
+                                Superuser (to'liq ruxsat)
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close">Bekor qilish</button>
+                <button class="btn btn-primary" id="saveUserBtn">
+                    <span class="btn-text">Saqlash</span>
+                    <span class="btn-loader" style="display: none;">
+                        <span class="spinner spinner-sm"></span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass modal-large">
+            <div class="modal-header">
+                <h2 id="productModalTitle">Yangi mahsulot</h2>
+                <button class="modal-close btn-icon glass">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="productForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Mahsulot nomi *</label>
+                            <input type="text" name="name" required placeholder="Lag'mon">
+                        </div>
+                        <div class="form-group">
+                            <label>Kategoriya *</label>
+                            <select name="category_id" required id="productCategory">
+                                <option value="">Kategoriya tanlang</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Narx (UZS) *</label>
+                            <input type="number" name="price" required placeholder="45000" min="0" step="1000">
+                        </div>
+                        <div class="form-group">
+                            <label>Tannarx (UZS)</label>
+                            <input type="number" name="cost_price" placeholder="25000" min="0" step="1000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Barcode/SKU</label>
+                            <input type="text" name="barcode" placeholder="123456789">
+                        </div>
+                        <div class="form-group">
+                            <label>Tayyorlash vaqti (daqiqa)</label>
+                            <input type="number" name="preparation_time" value="15" min="1">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tavsif</label>
+                        <textarea name="description" rows="3" placeholder="Mahsulot haqida qisqacha ma'lumot..."></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Rasm</label>
+                            <div class="image-upload">
+                                <input type="file" name="image" accept="image/*" id="productImage">
+                                <div class="upload-preview" id="imagePreview">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                                        <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+                                        <path d="M21 15l-5-5L8 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Holat</label>
+                            <div class="status-toggles">
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" name="is_active" checked>
+                                    <span class="checkmark"></span>
+                                    Faol
+                                </label>
+                                <label class="checkbox-wrapper">
+                                    <input type="checkbox" name="is_available" checked>
+                                    <span class="checkmark"></span>
+                                    Mavjud
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close">Bekor qilish</button>
+                <button class="btn btn-primary" id="saveProductBtn">Saqlash</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="../js/modules/admin.js"></script>
+</body>
+</html>

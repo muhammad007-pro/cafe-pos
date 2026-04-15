@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofitsiant Paneli | PremiumPOS</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/pages/waiter.css">
+</head>
+<body>
+    <div class="waiter-container">
+        <div class="waiter-header glass">
+            <h1>Ofitsiant Paneli</h1>
+            <div class="waiter-info">
+                <span id="waiterName">Alisher U.</span>
+                <span id="currentShift">Smena: 12:00 - 20:00</span>
+            </div>
+        </div>
+        
+        <div class="waiter-grid">
+            <div class="tables-section glass">
+                <h2>Stollar</h2>
+                <div class="tables-grid" id="waiterTablesGrid"></div>
+            </div>
+            
+            <div class="active-orders-section glass">
+                <h2>Faol buyurtmalar</h2>
+                <div class="orders-list" id="waiterOrdersList"></div>
+            </div>
+            
+            <div class="quick-actions-section glass">
+                <h2>Tezkor amallar</h2>
+                <div class="quick-actions-grid">
+                    <button class="quick-action" data-action="new-order">
+                        <span class="icon">📝</span>
+                        <span>Yangi buyurtma</span>
+                    </button>
+                    <button class="quick-action" data-action="add-items">
+                        <span class="icon">➕</span>
+                        <span>Qo'shish</span>
+                    </button>
+                    <button class="quick-action" data-action="payment">
+                        <span class="icon">💰</span>
+                        <span>To'lov</span>
+                    </button>
+                    <button class="quick-action" data-action="print">
+                        <span class="icon">🖨️</span>
+                        <span>Chop etish</span>
+                    </button>
+                    <button class="quick-action" data-action="call-waiter">
+                        <span class="icon">🔔</span>
+                        <span>Chaqiruv</span>
+                    </button>
+                    <button class="quick-action" data-action="shift-close">
+                        <span class="icon">🔒</span>
+                        <span>Smena yopish</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="js/waiter.js"></script>
+</body>
+</html>

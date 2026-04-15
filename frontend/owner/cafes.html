@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kafelar | PremiumPOS</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        .cafes-container {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+        
+        .cafes-table-card {
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .cafe-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .cafe-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .cafe-details {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cafe-name {
+            font-weight: 600;
+        }
+        
+        .cafe-address {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-badge.active {
+            background: var(--success-light);
+            color: var(--success);
+        }
+        
+        .status-badge.inactive {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+        
+        .status-badge.pending {
+            background: var(--warning-light);
+            color: var(--warning);
+        }
+        
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="cafes-container">
+        <div class="page-header">
+            <h1>Kafelar boshqaruvi</h1>
+            <button class="btn btn-primary" id="addCafeBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Yangi kafe qo'shish
+            </button>
+        </div>
+        
+        <div class="cafes-table-card glass">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Kafe</th>
+                        <th>Manzil</th>
+                        <th>Telefon</th>
+                        <th>Admin</th>
+                        <th>Xodimlar</th>
+                        <th>Holat</th>
+                        <th>Amallar</th>
+                    </tr>
+                </thead>
+                <tbody id="cafesTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Kafe qo'shish/tahrirlash modal -->
+    <div class="modal" id="cafeModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass modal-large">
+            <div class="modal-header">
+                <h2 id="cafeModalTitle">Yangi kafe qo'shish</h2>
+                <button class="modal-close btn-icon glass">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="cafeForm" class="admin-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Kafe nomi *</label>
+                            <input type="text" name="name" required placeholder="Premium Restaurant">
+                        </div>
+                        <div class="form-group">
+                            <label>Slug (URL) *</label>
+                            <input type="text" name="slug" required placeholder="premium-restaurant">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Manzil *</label>
+                            <input type="text" name="address" required placeholder="Toshkent sh, Amir Temur ko'chasi">
+                        </div>
+                        <div class="form-group">
+                            <label>Telefon *</label>
+                            <input type="tel" name="phone" required placeholder="+998 71 123 45 67">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" name="email" placeholder="info@restaurant.uz">
+                        </div>
+                        <div class="form-group">
+                            <label>Veb-sayt</label>
+                            <input type="url" name="website" placeholder="https://restaurant.uz">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Admin (foydalanuvchi ID) *</label>
+                            <input type="number" name="admin_id" required placeholder="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Holat</label>
+                            <select name="status">
+                                <option value="active">Faol</option>
+                                <option value="inactive">Nofaol</option>
+                                <option value="pending">Kutilmoqda</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tavsif</label>
+                        <textarea name="description" rows="3" placeholder="Kafe haqida qisqacha ma'lumot..."></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Ish vaqti</label>
+                            <input type="text" name="working_hours" placeholder="09:00 - 23:00">
+                        </div>
+                        <div class="form-group">
+                            <label>Stollar soni</label>
+                            <input type="number" name="tables_count" value="10" min="1">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Logo</label>
+                        <input type="file" name="logo" accept="image/*">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline modal-close">Bekor qilish</button>
+                <button class="btn btn-primary" id="saveCafeBtn">Saqlash</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Mock data
+        const cafes = [
+            { id: 1, name: 'Premium Toshkent', slug: 'tashkent', address: 'Amir Temur 15', phone: '+998 71 200 10 10', admin: 'Alisher U.', employees: 12, status: 'active', logo: null },
+            { id: 2, name: 'Premium Samarqand', slug: 'samarkand', address: 'Registon 5', phone: '+998 66 233 44 55', admin: 'Bahodir K.', employees: 8, status: 'active', logo: null },
+            { id: 3, name: 'Premium Buxoro', slug: 'bukhara', address: 'Labi Hovuz 3', phone: '+998 65 223 33 22', admin: 'Dilshod M.', employees: 6, status: 'active', logo: null },
+            { id: 4, name: 'Premium Namangan', slug: 'namangan', address: 'Boburshoh 10', phone: '+998 69 222 11 00', admin: '-', employees: 0, status: 'pending', logo: null }
+        ];
+        
+        function renderCafes() {
+            const tbody = document.getElementById('cafesTableBody');
+            
+            tbody.innerHTML = cafes.map(cafe => `
+                <tr>
+                    <td>
+                        <div class="cafe-info">
+                            <div class="cafe-logo" style="background: var(--primary-gradient); display: flex; align-items: center; justify-content: center; color: var(--secondary-dark); font-weight: bold;">
+                                ${cafe.name.charAt(0)}
+                            </div>
+                            <div class="cafe-details">
+                                <span class="cafe-name">${cafe.name}</span>
+                                <span class="cafe-address">${cafe.slug}.premiumpos.uz</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td>${cafe.address}</td>
+                    <td>${cafe.phone}</td>
+                    <td>${cafe.admin}</td>
+                    <td>${cafe.employees}</td>
+                    <td>
+                        <span class="status-badge ${cafe.status}">
+                            ${getStatusText(cafe.status)}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn-icon view-cafe" data-id="${cafe.id}" title="Ko'rish">👁️</button>
+                            <button class="btn-icon edit-cafe" data-id="${cafe.id}" title="Tahrirlash">✏️</button>
+                            <button class="btn-icon settings-cafe" data-id="${cafe.id}" title="Sozlamalar">⚙️</button>
+                            <a href="../app/admin.html?cafe=${cafe.id}" class="btn-icon" title="Admin panel">🔧</a>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function getStatusText(status) {
+            const texts = { active: 'Faol', inactive: 'Nofaol', pending: 'Kutilmoqda' };
+            return texts[status] || status;
+        }
+        
+        renderCafes();
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "appId": "uz.premiumpos.app",
+  "productName": "PremiumPOS",
+  "directories": {
+    "output": "dist"
+  },
+  "win": {
+    "target": ["nsis", "portable"],
+    "icon": "assets/icon.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "createStartMenuShortcut": true
+  }
+}

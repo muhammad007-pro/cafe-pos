@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard | PremiumPOS</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        .owner-container {
+            padding: 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        .welcome-card {
+            padding: 2rem;
+            margin-bottom: 2rem;
+            background: var(--primary-gradient);
+            color: var(--secondary-dark);
+        }
+        
+        .welcome-card h1 {
+            margin: 0 0 0.5rem 0;
+            -webkit-text-fill-color: var(--secondary-dark);
+        }
+        
+        .cafes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cafe-card {
+            padding: 1.5rem;
+        }
+        
+        .cafe-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .cafe-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .cafe-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .cafe-status.active {
+            background: var(--success-light);
+            color: var(--success);
+        }
+        
+        .cafe-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="owner-container">
+        <div class="welcome-card glass">
+            <h1>Xush kelibsiz, Owner!</h1>
+            <p>Barcha kafelaringizni bir joyda boshqaring</p>
+        </div>
+        
+        <div class="section-header">
+            <h2>Mening kafelarim</h2>
+            <button class="btn btn-primary" id="addCafeBtn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Yangi kafe qo'shish
+            </button>
+        </div>
+        
+        <div class="cafes-grid" id="cafesGrid"></div>
+        
+        <div class="section-header">
+            <h2>Umumiy statistika</h2>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card glass">
+                <span class="stat-value" id="totalRevenue">0 UZS</span>
+                <span class="stat-label">Jami daromad</span>
+            </div>
+            <div class="stat-card glass">
+                <span class="stat-value" id="totalOrders">0</span>
+                <span class="stat-label">Jami buyurtmalar</span>
+            </div>
+            <div class="stat-card glass">
+                <span class="stat-value" id="totalCustomers">0</span>
+                <span class="stat-label">Jami mijozlar</span>
+            </div>
+            <div class="stat-card glass">
+                <span class="stat-value" id="activeEmployees">0</span>
+                <span class="stat-label">Faol xodimlar</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Mock data
+        const cafes = [
+            { id: 1, name: 'Premium Restaurant Toshkent', status: 'active', revenue: '125.5M', orders: 1250, customers: 850 },
+            { id: 2, name: 'Premium Restaurant Samarqand', status: 'active', revenue: '85.2M', orders: 780, customers: 520 },
+            { id: 3, name: 'Premium Restaurant Buxoro', status: 'active', revenue: '45.8M', orders: 420, customers: 310 }
+        ];
+        
+        function renderCafes() {
+            const grid = document.getElementById('cafesGrid');
+            grid.innerHTML = cafes.map(cafe => `
+                <div class="cafe-card glass">
+                    <div class="cafe-header">
+                        <span class="cafe-name">${cafe.name}</span>
+                        <span class="cafe-status ${cafe.status}">${cafe.status === 'active' ? 'Faol' : 'Nofaol'}</span>
+                    </div>
+                    <div class="cafe-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">${cafe.revenue}</div>
+                            <div class="stat-label">Daromad</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${cafe.orders}</div>
+                            <div class="stat-label">Buyurtmalar</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">${cafe.customers}</div>
+                            <div class="stat-label">Mijozlar</div>
+                        </div>
+                    </div>
+                    <div class="quick-actions">
+                        <a href="../app/admin.html?cafe=${cafe.id}" class="btn btn-outline btn-sm">Boshqarish</a>
+                        <a href="../app/analytics.html?cafe=${cafe.id}" class="btn btn-outline btn-sm">Analitika</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        renderCafes();
+    </script>
+</body>
+</html>

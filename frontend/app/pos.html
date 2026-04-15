@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#c9a84c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <title>POS Panel | PremiumPOS</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/pages/pos.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="../pwa/manifest.json">
+</head>
+<body class="pos-page">
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <img src="../assets/icons/logo.svg" alt="Logo" class="loading-logo animate-pulse">
+            <div class="loading-progress">
+                <div class="progress-bar" id="loadingProgress"></div>
+            </div>
+            <p class="loading-text">Yuklanmoqda</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="pos-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass" id="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/icons/logo.svg" alt="Logo" class="sidebar-logo">
+                <h2 class="sidebar-title">Premium<span>POS</span></h2>
+                <button class="sidebar-collapse btn-icon glass" id="sidebarCollapse">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="pos.html" class="nav-item active">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="2" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="8" cy="8" r="2" fill="currentColor"/>
+                        <circle cx="16" cy="8" r="2" fill="currentColor"/>
+                        <circle cx="8" cy="16" r="2" fill="currentColor"/>
+                        <circle cx="16" cy="16" r="2" fill="currentColor"/>
+                    </svg>
+                    <span>POS Terminal</span>
+                </a>
+                
+                <a href="kitchen.html" class="nav-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M4 8h16v12a2 2 0 01-2 2H6a2 2 0 01-2-2V8z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M8 4V2h8v2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Oshxona</span>
+                </a>
+                
+                <a href="reservations.html" class="nav-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M3 10h18M8 2v4M16 2v4" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Bronlar</span>
+                </a>
+                
+                <a href="customers.html" class="nav-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Mijozlar</span>
+                </a>
+                
+                <a href="analytics.html" class="nav-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 12v6a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2h6" stroke="currentColor" stroke-width="2"/>
+                        <path d="M15 6l6-6v6h-6z" fill="currentColor"/>
+                    </svg>
+                    <span>Analitika</span>
+                </a>
+                
+                <a href="inventory.html" class="nav-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                        <path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Ombor</span>
+                </a>
+                
+                <a href="settings.html" class="nav-item">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>Sozlamalar</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="shift-info glass-light">
+                    <div class="shift-status">
+                        <span class="status-indicator active"></span>
+                        <span>Smena: 12:00 - 20:00</span>
+                    </div>
+                    <div class="shift-cash">
+                        <span class="label">Kassa:</span>
+                        <span class="value">12,500,000 UZS</span>
+                    </div>
+                </div>
+                
+                <div class="user-info">
+                    <img src="../assets/images/avatar-placeholder.jpg" alt="User" class="user-avatar">
+                    <div class="user-details">
+                        <span class="user-name">Alisher Uzoqov</span>
+                        <span class="user-role">Ofitsiant</span>
+                    </div>
+                    <button class="btn-icon glass" id="logoutBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 17l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="pos-header glass">
+                <div class="header-left">
+                    <button class="mobile-menu-toggle btn-icon glass" id="mobileMenuToggle">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="search-wrapper">
+                        <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <input type="search" id="searchProducts" placeholder="Mahsulot qidirish..." class="search-input">
+                        <kbd class="search-shortcut">⌘K</kbd>
+                    </div>
+                </div>
+                
+                <div class="header-center">
+                    <div class="table-selector">
+                        <button class="btn btn-outline" id="changeTableBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="2" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M7 7h10M7 12h10M7 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span id="currentTableDisplay">Stol #1</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="header-right">
+                    <button class="btn-icon glass notification-btn" id="notificationBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="2"/>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span class="notification-badge">3</span>
+                    </button>
+                    
+                    <button class="btn-icon glass" id="themeToggle">
+                        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="5" fill="currentColor"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </button>
+                    
+                    <button class="btn-icon glass" id="fullscreenBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <!-- POS Grid -->
+            <div class="pos-grid">
+                <!-- Left Panel - Categories & Products -->
+                <div class="products-panel">
+                    <!-- Categories -->
+                    <div class="categories-wrapper">
+                        <div class="categories-header">
+                            <h3>Kategoriyalar</h3>
+                            <button class="btn-icon glass" id="filterBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                    <path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="categories-list" id="categoriesList">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div class="products-wrapper">
+                        <div class="products-header">
+                            <h3 id="currentCategory">Barcha mahsulotlar</h3>
+                            <div class="products-sort">
+                                <select class="sort-select glass" id="sortProducts">
+                                    <option value="popular">Ommabop</option>
+                                    <option value="price_asc">Narx o'sish</option>
+                                    <option value="price_desc">Narx kamayish</option>
+                                    <option value="name">Nomi bo'yicha</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="products-grid" id="productsGrid">
+                            <!-- Will be populated by JS -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Panel - Cart -->
+                <div class="cart-panel glass">
+                    <div class="cart-header">
+                        <h3>Buyurtma</h3>
+                        <button class="btn-icon glass" id="clearCartBtn" title="Tozalash">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="cart-info">
+                        <div class="customer-section">
+                            <button class="btn btn-outline btn-sm" id="selectCustomerBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span id="selectedCustomerName">Mijoz tanlang</span>
+                            </button>
+                        </div>
+                        
+                        <div class="order-type">
+                            <button class="order-type-btn active" data-type="dine-in">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="20" height="20" rx="2" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                Shu yerda
+                            </button>
+                            <button class="order-type-btn" data-type="takeaway">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                Olib ketish
+                            </button>
+                            <button class="order-type-btn" data-type="delivery">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M5 13h12M5 17h8" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                Yetkazish
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart Items -->
+                    <div class="cart-items" id="cartItems">
+                        <!-- Empty Cart State -->
+                        <div class="cart-empty" id="cartEmpty">
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" class="empty-icon">
+                                <path d="M9 6h6M9 10h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                            </svg>
+                            <p>Savatcha bo'sh</p>
+                            <span>Mahsulot tanlang</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart Summary -->
+                    <div class="cart-summary">
+                        <div class="summary-row">
+                            <span>Jami:</span>
+                            <span id="cartSubtotal">0 UZS</span>
+                        </div>
+                        <div class="summary-row discount">
+                            <span>Chegirma:</span>
+                            <span id="cartDiscount">-0 UZS</span>
+                        </div>
+                        <div class="summary-row tax">
+                            <span>Soliq (12%):</span>
+                            <span id="cartTax">0 UZS</span>
+                        </div>
+                        <div class="summary-row service">
+                            <span>Xizmat (10%):</span>
+                            <span id="cartService">0 UZS</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Umumiy:</span>
+                            <span id="cartTotal">0 UZS</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Cart Actions -->
+                    <div class="cart-actions">
+                        <button class="btn btn-outline btn-lg" id="holdOrderBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12h14M12 5v14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Saqlash
+                        </button>
+                        <button class="btn btn-primary btn-lg" id="checkoutBtn">
+                            To'lov
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Quick Actions -->
+                    <div class="quick-actions">
+                        <button class="quick-action-btn" data-action="discount">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="7" cy="7" r="2" fill="currentColor"/>
+                            </svg>
+                            <span>Chegirma</span>
+                        </button>
+                        <button class="quick-action-btn" data-action="notes">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M8 8h8M8 12h8M8 16h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>Izoh</span>
+                        </button>
+                        <button class="quick-action-btn" data-action="split">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span>Bo'lish</span>
+                        </button>
+                        <button class="quick-action-btn" data-action="print">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M6 9V3h12v6M6 21h12v-6H6v6z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M18 9h2a2 2 0 012 2v5a2 2 0 01-2 2h-2" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                            <span>Chop etish</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Table Selection Modal -->
+    <div class="modal" id="tableModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>Stol tanlash</h2>
+                <button class="modal-close btn-icon glass">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="floor-plan" id="floorPlan">
+                    <!-- Tables will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="paymentModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass modal-large">
+            <div class="modal-header">
+                <h2>To'lov</h2>
+                <button class="modal-close btn-icon glass">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="payment-container">
+                    <div class="payment-summary">
+                        <h3>Buyurtma #<span id="paymentOrderNumber">001</span></h3>
+                        <div class="payment-amount">
+                            <span class="label">Umumiy summa:</span>
+                            <span class="value" id="paymentTotalAmount">0 UZS</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <h4>To'lov usuli</h4>
+                        <div class="payment-methods-grid">
+                            <button class="payment-method active" data-method="cash">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <circle cx="12" cy="12" r="2" fill="currentColor"/>
+                                    <path d="M7 12h10" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Naqd</span>
+                            </button>
+                            <button class="payment-method" data-method="card">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="5" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M2 10h20" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Karta</span>
+                            </button>
+                            <button class="payment-method" data-method="click">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M8 12l3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>Click</span>
+                            </button>
+                            <button class="payment-method" data-method="payme">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+                                    <path d="M20 12H4M12 20V4" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                                <span>Payme</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-cash" id="cashPaymentSection">
+                        <div class="form-group">
+                            <label>Qabul qilingan summa</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="cashReceived" placeholder="0" min="0" step="1000">
+                                <span class="input-suffix">UZS</span>
+                            </div>
+                        </div>
+                        <div class="cash-buttons">
+                            <button class="cash-btn" data-amount="50000">50,000</button>
+                            <button class="cash-btn" data-amount="100000">100,000</button>
+                            <button class="cash-btn" data-amount="200000">200,000</button>
+                            <button class="cash-btn" data-amount="500000">500,000</button>
+                            <button class="cash-btn exact">Aniq summa</button>
+                        </div>
+                        <div class="change-amount">
+                            <span>Qaytim:</span>
+                            <span id="changeAmount">0 UZS</span>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-actions">
+                        <button class="btn btn-outline btn-lg modal-close">Bekor qilish</button>
+                        <button class="btn btn-primary btn-lg" id="processPaymentBtn">
+                            <span class="btn-text">To'lovni amalga oshirish</span>
+                            <span class="btn-loader" style="display: none;">
+                                <span class="spinner spinner-sm"></span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Selection Modal -->
+    <div class="modal" id="customerModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>Mijoz tanlash</h2>
+                <button class="modal-close btn-icon glass">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="customer-search">
+                    <div class="search-wrapper">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                            <path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <input type="search" id="customerSearch" placeholder="Telefon raqam yoki ism...">
+                    </div>
+                    <button class="btn btn-primary" id="addCustomerBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Yangi mijoz
+                    </button>
+                </div>
+                <div class="customers-list" id="customersList">
+                    <!-- Will be populated by JS -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Discount Modal -->
+    <div class="modal" id="discountModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>Chegirma</h2>
+                <button class="modal-close btn-icon glass">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="discount-options">
+                    <div class="form-group">
+                        <label>Chegirma turi</label>
+                        <div class="discount-type">
+                            <button class="discount-type-btn active" data-type="percentage">Foiz (%)</button>
+                            <button class="discount-type-btn" data-type="fixed">Summa</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Qiymat</label>
+                        <div class="input-wrapper">
+                            <input type="number" id="discountValue" placeholder="0" min="0">
+                            <span class="input-suffix" id="discountUnit">%</span>
+                        </div>
+                    </div>
+                    <div class="discount-presets">
+                        <button class="preset-btn" data-value="5">5%</button>
+                        <button class="preset-btn" data-value="10">10%</button>
+                        <button class="preset-btn" data-value="15">15%</button>
+                        <button class="preset-btn" data-value="20">20%</button>
+                        <button class="preset-btn" data-value="25">25%</button>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn btn-outline modal-close">Bekor qilish</button>
+                    <button class="btn btn-primary" id="applyDiscountBtn">Qo'llash</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="../js/modules/pos.js"></script>
+</body>
+</html>

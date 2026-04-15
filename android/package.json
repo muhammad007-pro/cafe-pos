@@ -1,0 +1,44 @@
+{
+  "name": "premiumpos-pro",
+  "version": "1.0.0",
+  "description": "Premium Restaurant POS System - Professional Edition",
+  "main": "index.js",
+  "scripts": {
+    "init": "npx cap init \"PremiumPOS Pro\" uz.premiumpos.pro",
+    "add:android": "npx cap add android",
+    "sync": "npx cap sync",
+    "copy": "npx cap copy",
+    "update": "npx cap update android",
+    "open:android": "npx cap open android",
+    "build:debug": "npx cap sync android && cd android && ./gradlew assembleDebug",
+    "build:release": "npx cap sync android && cd android && ./gradlew assembleRelease",
+    "build:bundle": "npx cap sync android && cd android && ./gradlew bundleRelease",
+    "clean": "rm -rf android node_modules",
+    "install:all": "npm install && npx cap sync",
+    "icon:generate": "npx capacitor-assets generate --android",
+    "emulator": "cd android && ./gradlew installDebug && adb shell am start -n uz.premiumpos.pro/uz.premiumpos.pro.MainActivity"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^5.6.0",
+    "@capacitor/app": "^5.0.6",
+    "@capacitor/cli": "^5.6.0",
+    "@capacitor/core": "^5.6.0",
+    "@capacitor/haptics": "^5.0.6",
+    "@capacitor/keyboard": "^5.0.6",
+    "@capacitor/local-notifications": "^5.0.6",
+    "@capacitor/network": "^5.0.6",
+    "@capacitor/push-notifications": "^5.1.0",
+    "@capacitor/splash-screen": "^5.0.6",
+    "@capacitor/status-bar": "^5.0.6",
+    "@capacitor/toast": "^5.0.6",
+    "@capacitor/preferences": "^5.0.6",
+    "@capacitor/filesystem": "^5.1.0",
+    "@capacitor/share": "^5.0.6",
+    "@capacitor/device": "^5.0.6",
+    "@capacitor/browser": "^5.1.0",
+    "@capacitor/assets": "^3.0.4"
+  },
+  "dependencies": {
+    "@ionic/pwa-elements": "^3.2.1"
+  }
+}

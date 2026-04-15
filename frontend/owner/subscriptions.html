@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obunalar | PremiumPOS</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        .subscriptions-container {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .plan-card {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-premium);
+        }
+        
+        .plan-card.premium {
+            border: 2px solid var(--primary);
+        }
+        
+        .plan-badge {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.25rem 1rem;
+            background: var(--primary-gradient);
+            color: var(--secondary-dark);
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .plan-price small {
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--gray-500);
+        }
+        
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+        
+        .plan-features li {
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .plan-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-check {
+            color: var(--success);
+        }
+        
+        .feature-missing {
+            color: var(--gray-400);
+        }
+        
+        .active-subscriptions {
+            margin-top: 2rem;
+        }
+        
+        .subscription-card {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .subscription-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .subscription-details h4 {
+            margin: 0 0 0.25rem 0;
+        }
+        
+        .subscription-details p {
+            margin: 0;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+        }
+        
+        .subscription-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .subscription-status.active {
+            background: var(--success-light);
+            color: var(--success);
+        }
+        
+        .subscription-status.expired {
+            background: var(--danger-light);
+            color: var(--danger);
+        }
+        
+        .subscription-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="subscriptions-container">
+        <h1>Tarif rejalari</h1>
+        <p>Kafelaringiz uchun eng mos tarifni tanlang</p>
+        
+        <div class="plans-grid">
+            <div class="plan-card glass">
+                <div class="plan-name">Boshlang'ich</div>
+                <div class="plan-price">490,000 <small>UZS/oy</small></div>
+                <ul class="plan-features">
+                    <li><span class="feature-check">✓</span> 1 ta kafe</li>
+                    <li><span class="feature-check">✓</span> 5 tagacha xodim</li>
+                    <li><span class="feature-check">✓</span> Asosiy POS</li>
+                    <li><span class="feature-check">✓</span> Oshxona displey</li>
+                    <li><span class="feature-missing">✗</span> Analitika</li>
+                    <li><span class="feature-missing">✗</span> Ombor boshqaruvi</li>
+                    <li><span class="feature-missing">✗</span> QR menu</li>
+                </ul>
+                <button class="btn btn-outline btn-block">Tanlash</button>
+            </div>
+            
+            <div class="plan-card glass">
+                <div class="plan-name">Standart</div>
+                <div class="plan-price">990,000 <small>UZS/oy</small></div>
+                <ul class="plan-features">
+                    <li><span class="feature-check">✓</span> 3 tagacha kafe</li>
+                    <li><span class="feature-check">✓</span> 15 tagacha xodim</li>
+                    <li><span class="feature-check">✓</span> Asosiy POS</li>
+                    <li><span class="feature-check">✓</span> Oshxona displey</li>
+                    <li><span class="feature-check">✓</span> Analitika</li>
+                    <li><span class="feature-check">✓</span> Ombor boshqaruvi</li>
+                    <li><span class="feature-missing">✗</span> QR menu</li>
+                </ul>
+                <button class="btn btn-primary btn-block">Tanlash</button>
+            </div>
+            
+            <div class="plan-card glass premium">
+                <div class="plan-badge">OMMABOP</div>
+                <div class="plan-name">Premium</div>
+                <div class="plan-price">1,990,000 <small>UZS/oy</small></div>
+                <ul class="plan-features">
+                    <li><span class="feature-check">✓</span> 10 tagacha kafe</li>
+                    <li><span class="feature-check">✓</span> Cheksiz xodimlar</li>
+                    <li><span class="feature-check">✓</span> Asosiy POS</li>
+                    <li><span class="feature-check">✓</span> Oshxona displey</li>
+                    <li><span class="feature-check">✓</span> Analitika</li>
+                    <li><span class="feature-check">✓</span> Ombor boshqaruvi</li>
+                    <li><span class="feature-check">✓</span> QR menu</li>
+                </ul>
+                <button class="btn btn-primary btn-block">Tanlash</button>
+            </div>
+            
+            <div class="plan-card glass">
+                <div class="plan-name">Korporativ</div>
+                <div class="plan-price">3,990,000 <small>UZS/oy</small></div>
+                <ul class="plan-features">
+                    <li><span class="feature-check">✓</span> Cheksiz kafelar</li>
+                    <li><span class="feature-check">✓</span> Cheksiz xodimlar</li>
+                    <li><span class="feature-check">✓</span> Barcha funksiyalar</li>
+                    <li><span class="feature-check">✓</span> 24/7 qo'llab-quvvatlash</li>
+                    <li><span class="feature-check">✓</span> Maxsus integratsiyalar</li>
+                    <li><span class="feature-check">✓</span> Shaxsiy menejer</li>
+                </ul>
+                <button class="btn btn-outline btn-block">Bog'lanish</button>
+            </div>
+        </div>
+        
+        <div class="active-subscriptions">
+            <h2>Faol obunalar</h2>
+            
+            <div class="subscription-card glass">
+                <div class="subscription-info">
+                    <div class="subscription-details">
+                        <h4>Premium Restaurant Toshkent</h4>
+                        <p>Premium tarif • Tugash sanasi: 15.12.2024</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="subscription-status active">Faol</span>
+                </div>
+                <div class="subscription-actions">
+                    <button class="btn btn-outline btn-sm">Yangilash</button>
+                    <button class="btn btn-outline btn-sm">O'zgartirish</button>
+                </div>
+            </div>
+            
+            <div class="subscription-card glass">
+                <div class="subscription-info">
+                    <div class="subscription-details">
+                        <h4>Premium Restaurant Samarqand</h4>
+                        <p>Standart tarif • Tugash sanasi: 01.01.2025</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="subscription-status active">Faol</span>
+                </div>
+                <div class="subscription-actions">
+                    <button class="btn btn-outline btn-sm">Yangilash</button>
+                    <button class="btn btn-outline btn-sm">O'zgartirish</button>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <h2>To'lov tarixi</h2>
+            <div class="table-card glass">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sana</th>
+                            <th>Kafe</th>
+                            <th>Tarif</th>
+                            <th>Summa</th>
+                            <th>Holat</th>
+                            <th>Chek</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>15.11.2024</td>
+                            <td>Premium Toshkent</td>
+                            <td>Premium (oylik)</td>
+                            <td>1,990,000 UZS</td>
+                            <td><span class="status-badge completed">To'langan</span></td>
+                            <td><button class="btn-icon">📄</button></td>
+                        </tr>
+                        <tr>
+                            <td>01.11.2024</td>
+                            <td>Premium Samarqand</td>
+                            <td>Standart (oylik)</td>
+                            <td>990,000 UZS</td>
+                            <td><span class="status-badge completed">To'langan</span></td>
+                            <td><button class="btn-icon">📄</button></td>
+                        </tr>
+                        <tr>
+                            <td>15.10.2024</td>
+                            <td>Premium Toshkent</td>
+                            <td>Premium (oylik)</td>
+                            <td>1,990,000 UZS</td>
+                            <td><span class="status-badge completed">To'langan</span></td>
+                            <td><button class="btn-icon">📄</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

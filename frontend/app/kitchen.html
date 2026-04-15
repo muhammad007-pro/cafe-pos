@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#c9a84c">
+    <meta http-equiv="refresh" content="300">
+    
+    <title>Oshxona Displey | PremiumPOS</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/pages/kitchen.css">
+</head>
+<body class="kitchen-page">
+    <!-- Audio Notification -->
+    <audio id="newOrderSound" preload="auto">
+        <source src="../assets/sounds/new-order.mp3" type="audio/mpeg">
+        <source src="../assets/sounds/new-order.ogg" type="audio/ogg">
+    </audio>
+    
+    <audio id="urgentOrderSound" preload="auto">
+        <source src="../assets/sounds/urgent.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Main Container -->
+    <div class="kitchen-container">
+        <!-- Header -->
+        <header class="kitchen-header glass">
+            <div class="header-left">
+                <h1 class="kitchen-title">
+                    <span class="title-icon">👨‍🍳</span>
+                    Oshxona Displey
+                </h1>
+                <div class="station-selector">
+                    <select id="stationSelect" class="station-select glass">
+                        <option value="all">Barcha stansiyalar</option>
+                        <option value="grill">🥩 Grill</option>
+                        <option value="fry">🍟 Fryer</option>
+                        <option value="salad">🥗 Salat</option>
+                        <option value="pizza">🍕 Pizza</option>
+                        <option value="drinks">🥤 Ichimliklar</option>
+                        <option value="dessert">🍰 Desert</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <div class="stats-wrapper">
+                    <div class="stat-badge pending">
+                        <span class="stat-label">Kutilmoqda</span>
+                        <span class="stat-value" id="pendingCount">0</span>
+                    </div>
+                    <div class="stat-badge preparing">
+                        <span class="stat-label">Tayyorlanmoqda</span>
+                        <span class="stat-value" id="preparingCount">0</span>
+                    </div>
+                    <div class="stat-badge ready">
+                        <span class="stat-label">Tayyor</span>
+                        <span class="stat-value" id="readyCount">0</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="timer-display glass" id="kitchenTimer">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span id="currentTime">00:00:00</span>
+                </div>
+                
+                <button class="btn-icon glass" id="refreshBtn" title="Yangilash">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M23 4v6h-6M1 20v-6h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                
+                <button class="btn-icon glass" id="soundToggle" title="Ovoz">
+                    <svg class="sound-on" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 10v4h3l5 5V5L6 10H3z" fill="currentColor"/>
+                        <path d="M16 7a5 5 0 010 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M19 4a8 8 0 010 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <svg class="sound-off" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: none;">
+                        <path d="M3 10v4h3l5 5V5L6 10H3z" fill="currentColor"/>
+                        <path d="M16 7l4 4-4 4M20 7l-4 4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                
+                <button class="btn-icon glass" id="fullscreenBtn" title="To'liq ekran">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+                
+                <button class="btn btn-outline btn-sm" id="logoutBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M16 17l5-5-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Chiqish
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="kitchen-grid">
+            <!-- Pending Orders Column -->
+            <div class="orders-column pending-column">
+                <div class="column-header">
+                    <h2>
+                        <span class="status-indicator pending"></span>
+                        Kutilmoqda
+                        <span class="order-count" id="pendingColumnCount">0</span>
+                    </h2>
+                    <button class="btn-icon glass collapse-column">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="orders-list" id="pendingOrders">
+                    <!-- Orders will be rendered here -->
+                </div>
+            </div>
+            
+            <!-- Preparing Orders Column -->
+            <div class="orders-column preparing-column">
+                <div class="column-header">
+                    <h2>
+                        <span class="status-indicator preparing"></span>
+                        Tayyorlanmoqda
+                        <span class="order-count" id="preparingColumnCount">0</span>
+                    </h2>
+                </div>
+                <div class="orders-list" id="preparingOrders"></div>
+            </div>
+            
+            <!-- Ready Orders Column -->
+            <div class="orders-column ready-column">
+                <div class="column-header">
+                    <h2>
+                        <span class="status-indicator ready"></span>
+                        Tayyor
+                        <span class="order-count" id="readyColumnCount">0</span>
+                    </h2>
+                </div>
+                <div class="orders-list" id="readyOrders"></div>
+            </div>
+            
+            <!-- Completed Column (Optional - can be toggled) -->
+            <div class="orders-column completed-column collapsed">
+                <div class="column-header">
+                    <h2>
+                        <span class="status-indicator completed"></span>
+                        Yakunlangan
+                        <span class="order-count" id="completedColumnCount">0</span>
+                    </h2>
+                    <button class="btn-icon glass expand-column">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 15l6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="orders-list" id="completedOrders"></div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="kitchen-footer glass">
+            <div class="footer-left">
+                <div class="connection-status">
+                    <span class="status-dot connected"></span>
+                    <span id="connectionText">Ulangan</span>
+                </div>
+                <div class="last-update">
+                    So'nggi yangilanish: <span id="lastUpdate">hozir</span>
+                </div>
+            </div>
+            
+            <div class="footer-center">
+                <div class="quick-filters">
+                    <button class="filter-btn active" data-filter="all">Barchasi</button>
+                    <button class="filter-btn" data-filter="dine-in">Shu yerda</button>
+                    <button class="filter-btn" data-filter="takeaway">Olib ketish</button>
+                    <button class="filter-btn" data-filter="delivery">Yetkazish</button>
+                </div>
+            </div>
+            
+            <div class="footer-right">
+                <button class="btn btn-outline btn-sm" id="historyBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Tarix
+                </button>
+                <button class="btn btn-primary btn-sm" id="printSummaryBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M6 9V3h12v6M6 21h12v-6H6v6z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M18 9h2a2 2 0 012 2v5a2 2 0 01-2 2h-2" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    Hisobot
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div class="modal" id="orderDetailModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass modal-large">
+            <div class="modal-header">
+                <div class="order-detail-header">
+                    <h2>Buyurtma #<span id="modalOrderNumber">001</span></h2>
+                    <div class="order-meta">
+                        <span class="order-type-badge" id="modalOrderType">Shu yerda</span>
+                        <span class="order-time" id="modalOrderTime">5 daqiqa oldin</span>
+                    </div>
+                </div>
+                <button class="modal-close btn-icon glass">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="order-detail-content">
+                    <div class="order-info-panel">
+                        <div class="info-row">
+                            <span class="label">Stol:</span>
+                            <span class="value" id="modalTableNumber">#1</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Ofitsiant:</span>
+                            <span class="value" id="modalWaiter">Alisher U.</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Mijoz:</span>
+                            <span class="value" id="modalCustomer">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="order-items-list" id="modalOrderItems">
+                        <!-- Items will be rendered here -->
+                    </div>
+                    
+                    <div class="order-notes" id="modalOrderNotes">
+                        <!-- Notes if any -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-actions">
+                    <button class="btn btn-outline modal-close">Yopish</button>
+                    <button class="btn btn-warning" id="modalStartPreparing">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M10 8l6 4-6 4V8z" fill="currentColor"/>
+                        </svg>
+                        Tayyorlashni boshlash
+                    </button>
+                    <button class="btn btn-success" id="modalMarkReady">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                            <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Tayyor
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Modal -->
+    <div class="modal" id="historyModal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass modal-xlarge">
+            <div class="modal-header">
+                <h2>Buyurtmalar tarixi</h2>
+                <button class="modal-close btn-icon glass">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="history-filters">
+                    <input type="date" id="historyDateFrom" class="glass" value="">
+                    <input type="date" id="historyDateTo" class="glass" value="">
+                    <select id="historyStation" class="glass">
+                        <option value="">Barcha stansiyalar</option>
+                        <option value="grill">Grill</option>
+                        <option value="fry">Fryer</option>
+                        <option value="salad">Salat</option>
+                    </select>
+                    <button class="btn btn-primary" id="applyHistoryFilter">Filtrlash</button>
+                </div>
+                <div class="history-table-wrapper">
+                    <table class="history-table">
+                        <thead>
+                            <tr>
+                                <th>Buyurtma #</th>
+                                <th>Stol</th>
+                                <th>Turi</th>
+                                <th>Stansiya</th>
+                                <th>Vaqt</th>
+                                <th>Tayyorlash vaqti</th>
+                                <th>Holat</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- History rows will be rendered here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Scripts -->
+    <script type="module" src="../js/modules/kitchen.js"></script>
+</body>
+</html>
