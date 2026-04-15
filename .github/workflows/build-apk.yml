@@ -35,7 +35,7 @@ jobs:
       
       - name: Sync Capacitor
         working-directory: ./android
-        run: npx cap sync android --no-telemetry
+        run: npx cap sync android 
       
       - name: Grant execute permission for gradlew
         working-directory: ./android/android
