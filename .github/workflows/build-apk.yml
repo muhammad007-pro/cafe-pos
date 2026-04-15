@@ -29,18 +29,24 @@ jobs:
       
       - name: Install Capacitor dependencies
         working-directory: ./android
-        run: npm install
+        run: |
+          npm install --legacy-peer-deps
+          npm install -g @capacitor/cli
       
       - name: Sync Capacitor
         working-directory: ./android
-        run: npx cap sync android
+        run: npx cap sync android --no-telemetry
+      
+      - name: Grant execute permission for gradlew
+        working-directory: ./android/android
+        run: chmod +x gradlew
       
       - name: Build Android APK
         working-directory: ./android/android
-        run: ./gradlew assembleDebug --no-daemon
+        run: ./gradlew assembleDebug --no-daemon --stacktrace
       
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: PremiumPOS-App
-          path: android/android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/android/app/build/outputs/apk/debug/app-debug.apkv
