@@ -1,0 +1,46 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      
+      - name: Install Capacitor dependencies
+        working-directory: ./android
+        run: npm install
+      
+      - name: Sync Capacitor
+        working-directory: ./android
+        run: npx cap sync android
+      
+      - name: Build Android APK
+        working-directory: ./android/android
+        run: ./gradlew assembleDebug --no-daemon
+      
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PremiumPOS-App
+          path: android/android/app/build/outputs/apk/debug/app-debug.apk
